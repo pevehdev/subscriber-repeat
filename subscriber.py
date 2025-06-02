@@ -15,11 +15,17 @@ profile_user_data_dir = r"C:\TempChromeSeleniumProfile"
 
 options = Options()
 options.add_argument(f"user-data-dir={profile_user_data_dir}")
+
+# --- Opções para MODO HEADLESS ---
+options.add_argument("--headless")
+options.add_argument("--disable-gpu") # Opcional, mas frequentemente usado com headless
+options.add_argument("--window-size=1920,1080") # Define um tamanho de janela virtual
+# --- Fim das Opções para MODO HEADLESS ---
+
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--start-maximized")
+options.add_argument("--start-maximized") # Esta opção pode ser redundante ou conflitar com window-size em headless, mas geralmente não causa problemas.
 options.add_argument('--disable-blink-features=AutomationControlled')
-
 driver = None
 try:
     service = ChromeService(executable_path=ChromeDriverManager().install())
@@ -178,3 +184,4 @@ finally:
         print("Fechando o navegador.")
         driver.quit()
     print("Script finalizado.")
+    
